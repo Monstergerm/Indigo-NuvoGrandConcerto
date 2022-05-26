@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<Actions>
+	<!-- ========================================================================= -->
+	<Action id="setzoneon" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone On</Name>
+		<CallbackMethod>setzoneon</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setzoneoff" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone Off</Name>
+		<CallbackMethod>setzoneoff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setzonetoggle" deviceFilter="indigo.device,self.zone">
+		<Name>Toggle Zone On/Off</Name>
+		<CallbackMethod>setzonetoggle</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setzonevolume" deviceFilter="indigo.device,self.zone">
+		<Name>Set Zone Volume</Name>
+		<CallbackMethod>setZoneVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="setvolumelabel" type="label">
+				<Label>Enter the desired volume from 0 (min) to 79 (max) below. Alternatively you can prefix a value with + or - to increase or decrease volume by a given amount.</Label>
+			</Field>
+			<Field id="reqvolume" type="textfield">
+				<Label>Desired Volume:</Label>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setvolumeup" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone Volume Up</Name>
+		<CallbackMethod>setvolumeup</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setvolumedown" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone Volume Down</Name>
+		<CallbackMethod>setvolumedown</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setvolumemuteon" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone Mute On</Name>
+		<CallbackMethod>setvolumemuteon</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setvolumemuteoff" deviceFilter="indigo.device,self.zone">
+		<Name>Turn Zone Mute Off</Name>
+		<CallbackMethod>setvolumemuteoff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setzonesource" deviceFilter="indigo.device,self.zone">
+		<Name>Set Zone Source</Name>
+		<CallbackMethod>setZoneSource</CallbackMethod>
+		<ConfigUI>
+			<Field id="setzonelabel" type="label">
+				<Label>Choose the desired source for the zone.</Label>
+			</Field>
+			<Field id="reqsource" type="menu">
+				<Label>Source:</Label>
+				<List class="self" method="menuGetSources" />
+			</Field>			
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setplaypause" deviceFilter="indigo.device,self.zone">
+		<Name>Play/Pause Zone</Name>
+		<CallbackMethod>setPlayPause</CallbackMethod>
+	</Action>
+	<Action id="setprev" deviceFilter="indigo.device,self.zone">
+		<Name>Previous Track Zone</Name>
+		<CallbackMethod>setPrev</CallbackMethod>
+	</Action>
+	<Action id="setnext" deviceFilter="indigo.device,self.zone">
+		<Name>Next Track Zone</Name>
+		<CallbackMethod>setNext</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setdndon" deviceFilter="indigo.device,self.zone">
+		<Name>Zone DND On</Name>
+		<CallbackMethod>setDNDOn</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setdndoff" deviceFilter="indigo.device,self.zone">
+		<Name>Zone DND Off</Name>
+		<CallbackMethod>setDNDOff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="setalloff">
+		<Name>All Zones Off</Name>
+		<CallbackMethod>setAllOff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<!--Select Favorite is currently commented out as GC does not seem to accept that command correctly
+	<Action id="selectfavorite" deviceFilter="indigo.device,self">
+		<Name>Select Favorite</Name>
+		<CallbackMethod>selectFavorite</CallbackMethod>
+		<ConfigUI>
+			<Field id="selectfavoritelabel" type="label">
+				<Label>Choose the favorite you would like to select.</Label>
+			</Field>
+			<Field id="reqfav" type="menu">
+				<Label>Source:</Label>
+				<List>
+					<Option value="1">1</Option>
+					<Option value="2">2</Option>
+					<Option value="3">3</Option>
+					<Option value="4">4</Option>
+					<Option value="5">5</Option>
+					<Option value="6">6</Option>
+					<Option value="7">7</Option>
+					<Option value="8">8</Option>
+					<Option value="9">9</Option>
+					<Option value="10">10</Option>
+					<Option value="11">11</Option>
+					<Option value="12">12</Option>
+				</List>
+			</Field>			
+		</ConfigUI>
+	</Action>
+	-->
+	<!-- ========================================================================= -->
+	<Action id="sendtextalert">
+		<Name>Send Text Alert</Name>
+		<CallbackMethod>sendTextAlert</CallbackMethod>
+		<ConfigUI>
+			<Field id="sendtextalertlabel" type="label">
+				<Label>Choose which zones to send a message to (Command-click to select multiple).</Label>
+			</Field>
+			<Field id="selectedzones" type="list" >
+				<Label>Zones:</Label>
+				<List class="self" method="menuGetZones" />
+			</Field>
+			<Field id="msgtype" type="menu" defaultValue="1">
+				<Label>Message Type:</Label>
+				<List>
+					<Option value="0">Message on Active Zones Only</Option>
+					<Option value="1">Message on Active and Inactive Zones</Option>
+				</List>
+			</Field>
+			<Field id="msgdwell" type="menu" defaultValue="0">
+				<Label>Duration:</Label>
+				<List>
+					<Option value="1">Short Dwell Time</Option>
+					<Option value="0">Normal Dwell Time</Option>
+					<Option value="2">Long Dwell Time</Option>
+				</List>
+			</Field>
+			<Field id="sendtextalertlabel2" type="label">
+				<Label>Enter the text you wish to display (Max 50 characters) You may substitute a variable into the text by using the markup %%v:VARID%% where VARID is the unique id of a variable (available by right-clicking on the variable name).</Label>
+			</Field>
+			<Field id="messagetext" type="textfield">
+				<Label>Message:</Label>
+			</Field>			
+		</ConfigUI>
+	</Action>
+		<!-- ========================================================================= -->
+	<Action id="speakAnnouncement">
+		<Name>Speak Announcement</Name>
+		<CallbackMethod>speakAnnouncement</CallbackMethod>
+		<ConfigUI>
+			<Field id="speakAnnounceLabel" type="label">
+				<Label>Choose the zones on which to make the Announcement (Command-click to select multiple).</Label>
+			</Field>
+			<Field id="selectedzones" type="list" >
+				<Label>Zones:</Label>
+				<List class="self" method="menuGetZones" />
+			</Field>
+			<Field id="speakAnnounceLabel2" type="label">
+				<Label>Choose the Source that the Computer is connected to.</Label>
+			</Field>
+			<Field id="annSource" type="menu">
+				<Label>Source:</Label>
+				<List class="self" method="menuGetSources" />
+			</Field>
+			<Field id="speakAnnounceLabel3" type="label">
+				<Label>Checking 'Using Airplay' will delay the announcement for a couple of seconds to allow for Airplay buffering time. Uncheck if connecting your computer directly to the Grand Concerto.</Label>
+			</Field>
+			<Field id="airplaydelay" type="checkbox" defaultValue="true">
+				<Label>Using Airplay:</Label>
+			</Field>				
+			<Field id="speakAnnounceLabel4" type="label">
+				<Label>Enter the desired volume from 0 (min) to 79 (max) below.</Label>
+			</Field>
+			<Field id="annvolume" type="textfield">
+				<Label>Desired Volume:</Label>
+			</Field>
+			<Field id="speakAnnounceLabel5" type="label">
+				<Label>Enter the text you wish to speak. You may substitute a variable into the text by using the markup %%v:VARID%% where VARID is the unique id of a variable (available by right-clicking on the variable name).</Label>
+			</Field>
+			<Field id="announcement" type="textfield">
+				<Label>Announcement:</Label>
+			</Field>
+			<Field id="separator1" type="separator"/>
+			<Field id="speakAnnounceLabel6" type="label">
+				<Label>The plugin is designed to wait while the announcement is spoken before resetting Zone Status to original settings. However, in some instances this does not work and you may wish to specify a manual time in which the announcement may be made.</Label>
+			</Field>
+			<Field id="manualWait" type="checkbox" defaultValue="false">
+				<Label>Specify Time:</Label>
+			</Field>
+			<Field id="speakAnnounceLabel7" type="label" visibleBindingId="manualWait" visibleBindingValue="true">
+				<Label>Enter the amount of time (in seconds) that you would like to leave for the announcement. Maximum is 100 seconds.</Label>
+			</Field>
+			<Field id="mantime" type="textfield" visibleBindingId="manualWait" visibleBindingValue="true">
+				<Label>Time for Announcement:</Label>
+			</Field>				
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="pageon">
+		<Name>Turn Page On</Name>
+		<CallbackMethod>pageOn</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="pageoff">
+		<Name>Turn Page Off</Name>
+		<CallbackMethod>pageOff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id='configsettingsSeparator' />
+	<!-- ========================================================================= -->
+	<Action id="setallzonevolumes" deviceFilter="indigo.device,self.zone">
+		<Name>Set Zone Volume Configuration</Name>
+		<CallbackMethod>setallZoneVolumes</CallbackMethod>
+		<ConfigUI>
+			<Field id="setvolumelabel2a" type="label">
+				<Label>Enter the desired volumes from 79 (min) to 0 (max) below.</Label>
+			</Field>
+			<Field id="setvolumelabel2b" type="label">
+				<Label>(Note: Config volume level values are reversed. Suitable values are prefilled.)</Label>
+			</Field>
+			<Field id="reqvolume2" type="textfield" defaultValue="0">
+				<Label>Maximum Volume:</Label>
+			</Field>
+			<Field id="reqvolume3" type="textfield" defaultValue="60">
+				<Label>Power On Volume:</Label>
+			</Field>
+			<Field id="reqvolume4" type="textfield" defaultValue="43">
+				<Label>Paging Volume:</Label>
+			</Field>
+			<Field id="reqvolume5" type="textfield" defaultValue="50">
+				<Label>Party Volume:</Label>
+			</Field>
+			<Field id="reqvolume6" type="checkbox" defaultValue="true">
+				<Label>Reset Volume after Power On:</Label>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="reqallzonevolumes" deviceFilter="indigo.device,self.zone">
+		<Name>Request Zone Volume Configuration</Name>
+		<CallbackMethod>reqallZoneVolumes</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="reqzoneconfig" deviceFilter="indigo.device,self.zone">
+		<Name>Request Zone Configuration</Name>
+		<CallbackMethod>reqZoneConfig</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<!-- DND Config is commented out as GC does not seem to accept that command correctly -->
+	<!-- <Action id="setdndconfig" deviceFilter="indigo.device,self.zone">
+		<Name>Set Zone DND Configuration</Name>
+		<CallbackMethod>setDNDConfig</CallbackMethod>
+		<ConfigUI>
+			<Field id="reqDNDconfig1" type="checkbox" defaultValue="false">
+				<Label>No Mute:</Label>
+			</Field>
+			<Field id="reqDNDconfig2" type="checkbox" defaultValue="false">
+				<Label>No Page:</Label>
+			</Field>
+			<Field id="reqDNDconfig3" type="checkbox" defaultValue="false">
+				<Label>No Party:</Label>
+			</Field>
+		</ConfigUI>
+	</Action> 
+	-->
+	<!-- ========================================================================= -->
+	<Action id="setzoneslaveto" deviceFilter="indigo.device,self.zone">
+		<Name>Slave a Zone to another Zone</Name>
+		<CallbackMethod>setZoneSlaveTo</CallbackMethod>
+		<ConfigUI>
+			<Field id="setzonelabel" type="label">
+				<Label>Choose the desired slave-to-zone for this zone.</Label>
+			</Field>
+			<Field id="slavetozone" type="menu">
+				<Label>Source:</Label>
+				<List class="self" method="menuGetZones2" />
+			</Field>			
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id='configsettingsSeparator2' />
+	<!-- ========================================================================= -->
+	<Action id="setrawcmd" >
+		<Name>Send a Raw Command to Nuvo</Name>
+		<CallbackMethod>setRawCmd</CallbackMethod>
+		<ConfigUI>
+			<Field id="setrawcmdlabel" type="label">
+				<Label>Enter a Nuvo raw command. Proceed with caution. Consult Nuvo Serial Control Protocol for the correct API commands.</Label>
+			</Field>
+			<Field id="rawcmd" type="textfield" defaultValue="*">
+				<Label>Nuvo Command:</Label>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id='configsettingsSeparator3' />
+	<!-- ========================================================================= -->
+	<Action id="configtimeon" deviceFilter="indigo.device,self.zone">
+		<Name>Zone Time Display On</Name>
+		<CallbackMethod>configTimeOn</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="configtimeoff" deviceFilter="indigo.device,self.zone">
+		<Name>Zone Time Display Off</Name>
+		<CallbackMethod>configTimeOff</CallbackMethod>
+	</Action>
+	<!-- ========================================================================= -->
+	<Action id="updateclock">
+		<Name>Update Internal Clock</Name>
+		<CallbackMethod>updateClock</CallbackMethod>
+	</Action>
+
+</Actions>
+	

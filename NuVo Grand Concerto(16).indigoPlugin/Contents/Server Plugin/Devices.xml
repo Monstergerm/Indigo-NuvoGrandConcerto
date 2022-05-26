@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<Devices>
+	<!-- ========================================================================= -->
+	<Device type="relay" id="zone">
+		<Name>Audio Zone</Name>
+		<ConfigUI>
+			<Field id="zoneselect" type="menu">
+				<Label>Select Zone:</Label>
+				<List>
+					<Option value="Z1">Zone 1</Option>
+					<Option value="Z2">Zone 2</Option>
+					<Option value="Z3">Zone 3</Option>
+					<Option value="Z4">Zone 4</Option>
+					<Option value="Z5">Zone 5</Option>
+					<Option value="Z6">Zone 6</Option>
+					<Option value="Z7">Zone 7</Option>
+					<Option value="Z8">Zone 8</Option>
+					<Option value="Z9">Zone 9</Option>
+					<Option value="Z10">Zone 10</Option>
+					<Option value="Z11">Zone 11</Option>
+					<Option value="Z12">Zone 12</Option>
+					<Option value="Z13">Zone 13</Option>
+					<Option value="Z14">Zone 14</Option>
+					<Option value="Z15">Zone 15</Option>
+					<Option value="Z16">Zone 16</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+		<States>
+			<State id="Volume">
+				<ValueType>Integer</ValueType>
+				<TriggerLabel>Volume Changed</TriggerLabel>
+				<TriggerLabelPrefix>Volume Changed To</TriggerLabelPrefix>
+				<ControlPageLabel>Volume</ControlPageLabel>
+				<ControlPageLabelPrefix>Volume is</ControlPageLabelPrefix>
+			</State>
+			<State id="Input">
+				<ValueType>
+					<List>
+						<Option value="SRC1">S1</Option>
+						<Option value="SRC2">S2</Option>
+						<Option value="SRC3">S3</Option>
+						<Option value="SRC4">S4</Option>
+						<Option value="SRC5">S5</Option>
+						<Option value="SRC6">S6</Option>
+					</List>
+				</ValueType>
+				<TriggerLabel>Input Changed</TriggerLabel>
+				<TriggerLabelPrefix>Input Changed To</TriggerLabelPrefix>
+				<ControlPageLabel>Input</ControlPageLabel>
+				<ControlPageLabelPrefix>Input is</ControlPageLabelPrefix>
+			</State>
+		</States>
+	</Device>
+	<!-- ========================================================================= -->
+	<Device type="custom" id="source">
+		<Name>Input Source</Name>
+		<ConfigUI>
+			<Field id="inputselect" type="menu">
+				<Label>Select Input:</Label>
+				<List>
+					<Option value="S1">Input 1</Option>
+					<Option value="S2">Input 2</Option>
+					<Option value="S3">Input 3</Option>
+					<Option value="S4">Input 4</Option>
+					<Option value="S5">Input 5</Option>
+					<Option value="S6">Input 6</Option>
+				</List>
+			</Field>
+			<Field id="repTrackTime" type="checkbox">
+				<Label>Update Track Times:</Label>
+				<Description>Populates a device state in Indigo with live updating track time info. </Description>
+			</Field>
+			<Field id="supplyMd" type="checkbox" defaultValue="true">
+				<Label>Supply Metadata:</Label>
+				<Description>(Cannot be used with NuvoNet sources)</Description>
+			</Field>
+			<Field id="metadataSourceType" type="menu" defaultValue="shairport" visibleBindingId="supplyMd" visibleBindingValue="true">
+				<Label>Metadata Source:</Label>
+				<List>
+					<Option value="shairport">Shairport Sync Plugin</Option>
+					<Option value="variables">Variables</Option>
+				</List>
+			</Field>
+			<Field id="spDevice" type="menu" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Shairport Sync Device:</Label>
+				<List class="self" method="genSpDevs"/>
+			</Field>
+			<Field id="label1" type="label" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Depending on the source data playing on the Shairport Sync, some fields may not have data available. You can specify a 'secondary' field to be used in the event that the primary is not available, or choose to leave it blank and display nothing for that line.</Label>
+			</Field>
+			<Field id="spLine1p" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Line 1 (Primary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine1s" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>(Secondary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine2p" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Line 2 (Primary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine2s" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>(Secondary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine3p" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Line 3 (Primary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine3s" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>(Secondary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine4p" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>Line 4 (Primary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="spLine4s" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="shairport">
+				<Label>(Secondary)</Label>
+				<List class="self" method="genSpMdList"/>
+			</Field>
+			<Field id="iTunesServerID" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>iTunes Music Server:</Label>
+				<List class="self" method="genVariTunesList" dynamicReload="true"/>
+			</Field>
+			<Field id="label2" type="label" visibleBindingId="metadataSourceType" visibleBindingValue="variables" fontColor="darkgray" fontSize="small" alignWithControl="true">>
+				<Label>Indigo iTunes Server Device (leave blank if not applicable).</Label>
+			</Field>
+			<Field id="label3" type="label" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>The same variable can be used for multiple lines if desired, however variables can only be used for one input device each.</Label>
+			</Field>
+			<Field id="vLine1" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Line 1</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vLine2" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Line 2</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vLine3" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Line 3</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vLine4" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Line 4</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vDur" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Track Length</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vPos" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Track Position</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vRem" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Time Remaining</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="vStat" type="menu" defaultValue="" visibleBindingId="metadataSourceType" visibleBindingValue="variables">
+				<Label>Play Status</Label>
+				<List class="self" method="genVarMdList" dynamicReload="true"/>
+			</Field>
+			<Field id="label4" type="label" visibleBindingId="supplyMd" visibleBindingValue="true">
+				<Label>After stopping play, metadata pushed to the Grand Concerto will remain indefinitely. After the amount of time specified below, the metadata will be reset to the original 'blank' state you see prior to any metadata arriving.</Label>
+			</Field>
+			<Field id="clearsec" type="textfield" visibleBindingId="supplyMd" visibleBindingValue="true" defaultValue="5">
+				<Label>Time to Clear Data (minutes)</Label>
+			</Field>
+		</ConfigUI>
+		<States>
+			<State id="mData1">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Line 1 Changed</TriggerLabel>
+				<TriggerLabelPrefix>Line 1 Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Line 1 Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Line 1 Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="mData2">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Line 2 Changed</TriggerLabel>
+				<TriggerLabelPrefix>Line 2 Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Line 2 Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Line 2 Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="mData3">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Line 3 Changed</TriggerLabel>
+				<TriggerLabelPrefix>Line 3 Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Line 3 Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Line 3 Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="mData4">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Line 4 Changed</TriggerLabel>
+				<TriggerLabelPrefix>Line 4 Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Line 4 Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Line 4 Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="tracklen">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Track Length Changed</TriggerLabel>
+				<TriggerLabelPrefix>Track Length Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Track Length Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Track Length Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="trackprog">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Track Progress Changed</TriggerLabel>
+				<TriggerLabelPrefix>Track Progress Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Track Progress Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Track Progress Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="trackrem">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Track Time Remaining Changed</TriggerLabel>
+				<TriggerLabelPrefix>Track Time Remaining Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Track Time Remaining Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Track Time Remaining Changed to</ControlPageLabelPrefix>
+			</State>
+			<State id="status">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Status Changed</TriggerLabel>
+				<TriggerLabelPrefix>Status Changed to</TriggerLabelPrefix>
+				<ControlPageLabel>Status Changed</ControlPageLabel>
+				<ControlPageLabelPrefix>Status Changed to</ControlPageLabelPrefix>
+			</State>
+            <State id="onOffState">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Device State</TriggerLabel>
+                <ControlPageLabel>Device State</ControlPageLabel>
+            </State>
+		</States>
+
+        <UiDisplayStateId>onOffState</UiDisplayStateId>
+
+	</Device>
+</Devices>
+	
